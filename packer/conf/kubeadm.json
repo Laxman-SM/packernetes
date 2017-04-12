@@ -4,7 +4,7 @@
 		"region":"",
 		"instance_type":"",
 		"ami_name_suffix":"",
-    "basic_packages":""
+		"basic_packages":""
 	},
 	"builders": [{
 		"type":"amazon-ebs",
@@ -12,7 +12,10 @@
 		"instance_type": "{{user `instance_type`}}",
 		"source_ami": "{{user `source_ami`}}",
 		"ssh_username": "ubuntu",
-		"ami_name": "packernetes {{user `ami_name_suffix`}}"
+		"ami_name": "packernetes hybrid master/worker image {{user `ami_name_suffix`}}",
+		"ami_regions": [
+			"eu-central-1"
+		]
 	}],
 	"provisioners": [{
 		"type":"shell",
