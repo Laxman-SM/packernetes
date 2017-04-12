@@ -3,7 +3,8 @@
 		"source_ami":"",
 		"region":"",
 		"instance_type":"",
-		"ami_name_suffix":""
+		"ami_name_suffix":"",
+    "basic_packages":""
 	},
 	"builders": [{
 		"type":"amazon-ebs",
@@ -23,7 +24,9 @@
 			"echo deb http://apt.kubernetes.io/ kubernetes-xenial main | sudo tee /etc/apt/sources.list.d/kubernetes.list",
 			"sudo apt-get update",
 			"export DEBIAN_FRONTEND=noninteractive; sudo apt-get dist-upgrade -y -u",
-			"export DEBIAN_FRONTEND=noninteractive; sudo apt-get install -y -u apt-transport-https docker.io kubelet kubeadm kubectl kubernetes-cni"
+			"export DEBIAN_FRONTEND=noninteractive; sudo apt-get install -y -u apt-transport-https docker.io kubelet kubeadm kubectl kubernetes-cni",
+      "export DEBIAN_FRONTEND=noninteractive; sudo apt-get install -y -u {{user `basic_packages`}}"
 		]
 	}]
 }
+

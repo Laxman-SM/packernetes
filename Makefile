@@ -14,9 +14,9 @@ PACKER_REGION = eu-central-1
 #
 PACKER_INSTANCE_TYPE = t2.medium
 
-include include/defines.mk
-
 all: preflight packer
+
+include include/defines.mk
 
 .PHONY: packer
 packer:
