@@ -11,7 +11,7 @@
 		"instance_type": "{{user `instance_type`}}",
 		"source_ami": "{{user `source_ami`}}",
 		"ssh_username": "ubuntu",
-		"ami_name": "packer {{user `ami_name_suffix`}}"
+		"ami_name": "packernetes {{user `ami_name_suffix`}}"
 	}],
 	"provisioners": [{
 		"type":"shell",
