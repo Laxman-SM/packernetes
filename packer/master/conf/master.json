@@ -2,7 +2,8 @@
 {
   "type":"shell",
   "inline": [
-    "echo MASTER | sudo tee /root/MASTER.md"
+    "echo DEBUG: {{timestamp}}: running MASTER setup script",
+    "sudo /tmp/scripts/master.sh"
   ]
 }
 

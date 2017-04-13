@@ -3,9 +3,10 @@
         "source_ami":"",
         "region":"",
         "instance_type":"",
-        "ami_name_prefix":"",
-        "ami_name_suffix":"",
-        "basic_packages":""
+        "ami_name":"",
+        "basic_packages":"",
+        "build_username":"{{env `USER`}}",
+        "build_git_commit_id":""
     },
     "builders": [{
         "type":"amazon-ebs",
@@ -13,23 +14,37 @@
         "instance_type": "{{user `instance_type`}}",
         "source_ami": "{{user `source_ami`}}",
         "ssh_username": "ubuntu",
-        "ami_name": "packernetes {{user `ami_name_prefix`}} image {{user `ami_name_suffix`}}",
+        "ami_name": "{{user `ami_name`}}",
         "ami_regions": [
             "eu-central-1"
-        ]
+        ],
+        "tags": {
+            "builder":"amazon-ebs",
+            "build-region":"{{user `region`}}",
+            "build-date":"{{timestamp}}",
+            "build-instance_type":"{{user `instance_type`}}",
+            "build-source_ami":"{{user `source_ami`}}",
+            "ami_name":"{{user `ami_name`}}",
+            "build-by":"{{user `build_username`}}",
+            "build-git_commit_id":"{{user `build_git_commit_id`}}"
+        }
     }],
-    "provisioners": [{
+    "provisioners": [
+      {
+        "type":"file",
+        "source":"../scripts/install.sh",
+        "destination":"/tmp/install.sh"
+      },
+      {
         "type":"shell",
         "inline": [
-            "export DEBIAN_FRONTEND=noninteractive; echo grub grub/update_grub_changeprompt_threeway select install_new | sudo debconf-set-selections",
-            "export DEBIAN_FRONTEND=noninteractive; echo grub-legacy-ec2 grub/update_grub_changeprompt_threeway select install_new | sudo debconf-set-selections",
-            "export DEBIAN_FRONTEND=noninteractive; yes | sudo dpkg --configure -a",
-            "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -",
-            "echo deb http://apt.kubernetes.io/ kubernetes-xenial main | sudo tee /etc/apt/sources.list.d/kubernetes.list",
-            "sudo apt-get update",
-            "export DEBIAN_FRONTEND=noninteractive; sudo apt-get dist-upgrade -y -u",
-            "export DEBIAN_FRONTEND=noninteractive; sudo apt-get install -y -u apt-transport-https docker.io kubelet kubeadm kubectl kubernetes-cni",
-      "export DEBIAN_FRONTEND=noninteractive; sudo apt-get install -y -u {{user `basic_packages`}}"
+          "sudo /tmp/install.sh {{user `basic_packages`}}",
+          "echo '{{user `ami_name`}}' | sudo tee /root/PACKER.md"
         ]
-    }
+      },
+      {
+        "type":"file",
+        "source":"scripts",
+        "destination":"/tmp"
+      }
 

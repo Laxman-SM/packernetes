@@ -1,9 +1,11 @@
 # packernetes
 packer · kubeadm · kubernetes
 
-You need to pip install xkcdpass and download packer from hashicorp to run this code.
+This tool will only work if you have set up your AWS credentials using `aws configure`, packer will need these credentials for spawning build instances.
 
-Edit the top level Makefile to change the AMI and the region you use for building.
+Also you need to pip install xkcdpass and download packer from hashicorp to run this code.
+
+You may export environment variables or directly edit the top level Makefile to change the AMI and the region you use for building.
 
 At the moment a lot of things are hardcoded in the configs.
 

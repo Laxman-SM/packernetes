@@ -2,9 +2,10 @@
 all: config validate build
 
 include ../include/packer.mk
+include ../include/build.mk
 
 config:
-	@$(BUILD_CONFIG)
+	@$(CONFIG)
 
 validate:
 	@$(PACKER)

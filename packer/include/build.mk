@@ -1,0 +1,20 @@
+
+PACKER_KUBEADM_CONF_HEAD = ../conf/kubeadm.json.HEAD
+PACKER_KUBEADM_CONF_TAIL = ../conf/kubeadm.json.TAIL
+
+BUILD_COMMAND1 = test -d scripts && chmod 0755 scripts/*.sh
+BUILD_COMMAND2 = test -d ../scripts && chmod 0755 ../scripts/*.sh
+BUILD_COMMAND3 = mkdir -pv tmp
+
+BUILD_COMMANDS = $(BUILD_COMMAND1); $(BUILD_COMMAND2); $(BUILD_COMMAND3)
+
+BUILD_HEAD = $(PACKER_KUBEADM_CONF_HEAD)
+BUILD_CONF = conf/$(IMAGE_TYPE).json
+BUILD_TAIL = $(PACKER_KUBEADM_CONF_TAIL)
+
+BUILD_CONFIG = cat $(BUILD_HEAD) $(BUILD_CONF) $(BUILD_TAIL)
+
+BUILD_OUTPUT = python -mjson.tool | tee $(PACKER_JSON)
+
+CONFIG = $(BUILD_COMMANDS); $(BUILD_CONFIG) | $(BUILD_OUTPUT)
+

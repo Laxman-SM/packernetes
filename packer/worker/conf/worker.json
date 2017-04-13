@@ -2,7 +2,8 @@
 {
   "type":"shell",
   "inline": [
-    "echo WORKER | sudo tee /root/WORKER.md"
+    "echo DEBUG: {{timestamp}}: running WORKER setup script",
+    "sudo /tmp/scripts/worker.sh"
   ]
 }
 
