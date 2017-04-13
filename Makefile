@@ -14,6 +14,13 @@ PACKER_REGION = eu-central-1
 #
 PACKER_INSTANCE_TYPE = t2.medium
 
+#
+# you can override this variable to influence the seeding of the codenames
+#
+ifeq "$(CODE_NAME_SEED)" ""
+CODE_NAME_SEED = "aa"
+endif
+
 all: preflight packer/master packer/worker
 
 include include/defines.mk
