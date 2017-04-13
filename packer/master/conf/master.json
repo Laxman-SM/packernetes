@@ -1,0 +1,8 @@
+,
+{
+  "type":"shell",
+  "inline": [
+    "echo MASTER | sudo tee /root/MASTER.md"
+  ]
+}
+

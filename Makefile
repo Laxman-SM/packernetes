@@ -5,24 +5,24 @@
 PACKER_SOURCE_AMI = ami-3f1bd150
 
 #
-# this only affects which region is used by packer to build the ami
+# this defines the region to be used by packer to build the AMI
 #
 PACKER_REGION = eu-central-1
 
 #
-# should be good enough for most of the building we do here
+# this is the size of the ec2 instance we use for building the AMI
 #
 PACKER_INSTANCE_TYPE = t2.medium
 
-all: preflight packer
+all: preflight packer/master packer/worker
 
 include include/defines.mk
 
-.PHONY: packer
-packer:
+.PHONY: packer/master
+packer/master:
 	@$(DESCEND)
 
-# .PHONY: terraform
-# terraform:
-# @$(DESCEND)
+.PHONY: packer/worker
+packer/worker:
+	@$(DESCEND)
 
