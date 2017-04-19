@@ -18,6 +18,9 @@
         "ami_regions": [
             "eu-central-1"
         ],
+        "ami_groups": [
+            "all"
+        ],
         "tags": {
             "builder":"amazon-ebs",
             "build-region":"{{user `region`}}",

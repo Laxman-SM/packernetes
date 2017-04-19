@@ -20,11 +20,15 @@ grub grub/update_grub_changeprompt_threeway select install_new
 grub-legacy-ec2 grub/update_grub_changeprompt_threeway select install_new
 EOF
 
+dpkg --configure -a
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
+cat >/etc/apt/sources.list.d/kubernetes.list <<EOF
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
 
-apt-get update 1>/dev/null
+apt-get update
 apt-get dist-upgrade -y -u
 
 # via https://kubernetes.io/docs/getting-started-guides/kubeadm/
