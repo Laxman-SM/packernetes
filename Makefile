@@ -44,3 +44,7 @@ packer/master:
 packer/worker:
 	@$(DESCEND)
 
+clean:
+	@rm -rfv packer/worker/tmp
+	@rm -rfv packer/master/tmp
+

@@ -24,11 +24,7 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
 
-#
-# von hier an blind.
-#
 apt-get update 1>/dev/null
-
 apt-get dist-upgrade -y -u
 
 # via https://kubernetes.io/docs/getting-started-guides/kubeadm/
