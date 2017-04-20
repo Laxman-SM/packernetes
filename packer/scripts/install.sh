@@ -84,5 +84,19 @@ EOF
 #
 apt-get install -y -u $PACKAGES
 
+#
+# pin the timezone of the image
+#
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+#
+# install and activate ntp
+#
+apt-get install -y -u ntpdate ntp
+
+for CMD in "enable" "start" "status"; do
+  systemctl $CMD ntp
+done
+
 exit 0
 
