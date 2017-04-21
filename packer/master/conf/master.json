@@ -1,3 +1,4 @@
+
 ,
 {
   "type":"shell",
@@ -7,3 +8,33 @@
   ]
 }
 
+,
+{
+  "type":"shell",
+  "inline": [
+    "sudo mkdir -pv /post-install",
+    "sudo chown -R ubuntu: /post-install"
+  ]
+}
+
+,
+{
+  "type":"file",
+  "source":"post-install/conf",
+  "destination":"/post-install/conf"
+}
+
+,
+{
+  "type":"file",
+  "source":"post-install/scripts",
+  "destination":"/post-install/scripts"
+}
+
+,
+{
+  "type":"shell",
+  "inline": [
+    "sudo chown -R root:root /post-install"
+  ]
+}
