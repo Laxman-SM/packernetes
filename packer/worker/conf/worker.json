@@ -1,9 +1,0 @@
-,
-{
-  "type":"shell",
-  "inline": [
-    "echo DEBUG: {{timestamp}}: running WORKER setup script",
-    "sudo /tmp/scripts/worker.sh"
-  ]
-}
-

@@ -1,0 +1,70 @@
+{
+    "builders": [
+        {
+            "ami_groups": [
+                "all"
+            ],
+            "ami_name": "{{user `ami_name`}}",
+            "ami_regions": [
+                "eu-central-1"
+            ],
+            "instance_type": "{{user `instance_type`}}",
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "ssh_username": "ubuntu",
+            "tags": {
+                "ami_name": "{{user `ami_name`}}",
+                "build-by": "{{user `build_username`}}",
+                "build-date": "{{timestamp}}",
+                "build-git_commit_id": "{{user `build_git_commit_id`}}",
+                "build-instance_type": "{{user `instance_type`}}",
+                "build-region": "{{user `region`}}",
+                "build-source_ami": "{{user `source_ami`}}",
+                "builder": "amazon-ebs"
+            },
+            "type": "amazon-ebs"
+        }
+    ],
+    "provisioners": [
+        {
+            "inline": [
+                "mkdir -pv /home/ubuntu/packernetes/common",
+                "mkdir -pv /home/ubuntu/packernetes/{{user `image_type`}}"
+            ],
+            "type": "shell"
+        },
+        {
+            "destination": "/home/ubuntu/packernetes/common",
+            "source": "../common/scripts",
+            "type": "file"
+        },
+        {
+            "destination": "/home/ubuntu/packernetes/{{user `image_type`}}",
+            "source": "../{{user `image_type`}}/scripts",
+            "type": "file"
+        },
+        {
+            "script": "../common/scripts/bin/bootstrap.sh",
+            "type": "shell"
+        },
+        {
+            "environment_vars": [
+                "AMI_NAME={{user `ami_name`}}",
+                "BASIC_PACKAGES={{user `basic_packages`}}",
+                "IMAGE_TYPE={{user `image_type`}}"
+            ],
+            "script": "../common/scripts/bin/preinstall.sh",
+            "type": "shell"
+        }
+    ],
+    "variables": {
+        "ami_name": "",
+        "basic_packages": "",
+        "build_git_commit_id": "",
+        "build_username": "{{env `USER`}}",
+        "image_type": "",
+        "instance_type": "",
+        "region": "",
+        "source_ami": ""
+    }
+}

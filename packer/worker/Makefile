@@ -1,11 +1,7 @@
 
-all: config validate build
+all: validate build
 
-include ../include/packer.mk
-include ../include/build.mk
-
-config:
-	@$(CONFIG)
+include ../common/include/packer.mk
 
 validate:
 	@$(PACKER)

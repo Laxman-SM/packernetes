@@ -38,13 +38,9 @@ include include/defines.mk
 
 .PHONY: packer/master
 packer/master:
-	@$(DESCEND)
+	@$(BUILD_IMAGE)
 
 .PHONY: packer/worker
 packer/worker:
-	@$(DESCEND)
-
-clean:
-	@rm -rfv packer/worker/tmp
-	@rm -rfv packer/master/tmp
+	@$(BUILD_IMAGE)
 
