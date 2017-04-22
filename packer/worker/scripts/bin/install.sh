@@ -40,5 +40,5 @@ if [[ "" == "$MASTER_PORT" ]]; then
   MASTER_PORT="6443"
 fi
 
-sudo kubeadm join --token="$TOKEN" "$MASTER:$MASTER_PORT"
+sudo kubeadm join --token "$TOKEN" "$MASTER:$MASTER_PORT"
 
