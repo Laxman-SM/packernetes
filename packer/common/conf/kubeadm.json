@@ -55,6 +55,14 @@
             ],
             "script": "../common/scripts/bin/preinstall.sh",
             "type": "shell"
+        },
+        {
+            "environment_vars": [
+                "KUBERNETES_VERSION=1.6.1",
+                "K8S_DNS_VERSION=1.14.1"
+            ],
+            "script": "scripts/bin/pre-install.sh",
+            "type": "shell"
         }
     ],
     "variables": {

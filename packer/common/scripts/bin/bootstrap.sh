@@ -20,9 +20,9 @@ sudo apt-get dist-upgrade -y -u
 sudo apt-get autoremove -y
 
 #
-# install everything that is necessary to run the pre-install scripts via packer
+# install everything that is necessary to run the scripts uploaded via packer
 #
-sudo apt-get install -y -u make golang python
+sudo apt-get install -y -u make golang python wget curl
 
 sync
 
