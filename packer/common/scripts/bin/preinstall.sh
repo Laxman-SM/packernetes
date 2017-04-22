@@ -125,7 +125,7 @@ sudo ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 # install and activate ntp
 #
 sudo apt-get install -y -u ntpdate ntp
-for CMD in "enable" "start" "status"; do
+for CMD in "enable" "start"; do
   sudo systemctl $CMD ntp
 done
 
