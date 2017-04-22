@@ -1,23 +1,15 @@
 #!/usr/bin/env bash
 #./post-install.sh
 
-FLANNEL="/home/ubuntu/packernetes/master/scripts/conf/kube-flannel.yaml"
+# this needs to be called using sudo!
 
-export KUBECONFIG="/home/ubuntu/kubernetes/admin.conf"
+export KUBECONFIG="/etc/kubernetes/admin.conf"
 
 set -e
 
-if [[ "" == "$MASTER" ]]; then
-  MASTER="$HOSTNAME"
-fi
-
-if [[ "" == "$MASTER_PORT" ]]; then
-  MASTER_PORT="6443"
-fi
-
-kubectl apply \
-  -f $FLANNEL \
-  --server=https://$MASTER:$MASTER_PORT
+export KUBECONFIG=/etc/kubernetes/admin.conf
+kubectl apply -f https://git.io/weave-kube-1.6
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 
 exit 0
 
