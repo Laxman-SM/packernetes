@@ -32,9 +32,7 @@ else
   APISERVER_CERT_EXTRA_SANS="--apiserver-cert-extra-sans=$FQDN"
 fi
 
-sudo kubeadm init \
-  --token="$TOKEN" \
-  --pod-network-cidr="10.244.0.0/16" $APISERVER_CERT_EXTRA_SANS
+sudo kubeadm init --token "$TOKEN" --pod-network-cidr "10.244.0.0/16" $APISERVER_CERT_EXTRA_SANS
 
 mkdir -pv /home/ubuntu/kubernetes
 
