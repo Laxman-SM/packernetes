@@ -9,8 +9,7 @@ echo '#'
 echo '# setting up kubernetes worker node'
 echo '#'
 
-test -f /home/ubuntu/packernetes/packer/worker/scripts/bin/install.sh && \
-  exec /home/ubuntu/packernetes/packer/worker/scripts/bin/install.sh
+exec /home/ubuntu/packernetes/worker/scripts/bin/install.sh
 
 EOF
 
