@@ -7,6 +7,14 @@ USER_DATA_URL="http://169.254.169.254/latest/user-data"
 USER_DATA="$(wget -qO- $USER_DATA_URL)"
 
 if [[ "" == "$TOKEN" ]]; then
+  TOKEN="$1"
+fi
+
+if [[ "" == "$FQDN" ]]; then
+  FQDN="$2"
+fi
+
+if [[ "" == "$TOKEN" ]]; then
   TOKEN="$(echo "$USER_DATA" | awk -F'|' {'print $1;'})"
 fi
 

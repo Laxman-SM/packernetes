@@ -7,6 +7,18 @@ USER_DATA_URL="http://169.254.169.254/latest/user-data"
 USER_DATA="$(wget -qO- $USER_DATA_URL)"
 
 if [[ "" == "$TOKEN" ]]; then
+  TOKEN="$1"
+fi
+
+if [[ "" == "$MASTER" ]]; then
+  MASTER="$2"
+fi
+
+if [[ "" == "$MASTER_PORT" ]]; then
+  MASTER_PORT="$3"
+fi
+
+if [[ "" == "$TOKEN" ]]; then
   TOKEN="$(echo "$USER_DATA" | awk -F'|' {'print $1;'})"
 fi
 
