@@ -4,7 +4,6 @@
 set -e
 
 USER_DATA_URL="http://169.254.169.254/latest/user-data"
-USER_DATA="$(wget -qO- $USER_DATA_URL)"
 
 if [[ "" == "$TOKEN" ]]; then
   TOKEN="$1"
@@ -15,10 +14,12 @@ if [[ "" == "$FQDN" ]]; then
 fi
 
 if [[ "" == "$TOKEN" ]]; then
+  USER_DATA="$(wget -qO- $USER_DATA_URL)"
   TOKEN="$(echo "$USER_DATA" | awk -F'|' {'print $1;'})"
 fi
 
 if [[ "" == "$FQDN" ]]; then
+  USER_DATA="$(wget -qO- $USER_DATA_URL)"
   FQDN="$(echo "$USER_DATA" | awk -F'|' {'print $2;'})"
 fi
 
