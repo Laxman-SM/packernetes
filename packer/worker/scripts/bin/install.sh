@@ -4,7 +4,6 @@
 set -e
 
 USER_DATA_URL="http://169.254.169.254/latest/user-data"
-USER_DATA="$(wget -qO- $USER_DATA_URL)"
 
 if [[ "" == "$TOKEN" ]]; then
   TOKEN="$1"
@@ -19,14 +18,17 @@ if [[ "" == "$MASTER_PORT" ]]; then
 fi
 
 if [[ "" == "$TOKEN" ]]; then
+  USER_DATA="$(wget -qO- $USER_DATA_URL)"
   TOKEN="$(echo "$USER_DATA" | awk -F'|' {'print $1;'})"
 fi
 
 if [[ "" == "$MASTER" ]]; then
+  USER_DATA="$(wget -qO- $USER_DATA_URL)"
   MASTER="$(echo "$USER_DATA" | awk -F'|' {'print $2;'})"
 fi
 
 if [[ "" == "$MASTER_PORT" ]]; then
+  USER_DATA="$(wget -qO- $USER_DATA_URL)"
   MASTER_PORT="$(echo "$USER_DATA" | awk -F'|' {'print $3;'})"
 fi
 
