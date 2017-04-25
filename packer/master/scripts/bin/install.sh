@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 #./install.sh
 
-#
-# WARNING: this script is not fetched by the Vagrantfile
-#
 set -e
 
 USER_DATA_URL="http://169.254.169.254/latest/user-data"
