@@ -1,11 +1,11 @@
 # packernetes
-packer · kubeadm · kubernetes
 
-This tool will only work if you have set up your AWS credentials using `aws configure`, packer will need these credentials for spawning build instances.
+This tool preloads a master AMI and a worker AMI with kubernetes software to be used with terraform to deploy kubernetes on AWS.
 
+Terraform creates EC2 instances based on these images, calls kubeadm init and creates an autoscaling group.
+The launch configuration of the ASG provides the appropriate join token in user-data.
+When an EC2 instance of the ASG comes up it calls the join script via /etc/rc.local.
+
+To use this project, please set up your access key and secret key in ~/.aws/credentials.
 Also you need to pip install xkcdpass and download packer from hashicorp to run this code.
-
-You may export environment variables or directly edit the top level Makefile to change the AMI and the region you use for building.
-
-At the moment a lot of things are hardcoded in the configs.
 

@@ -53,14 +53,10 @@
                 "BASIC_PACKAGES={{user `basic_packages`}}",
                 "IMAGE_TYPE={{user `image_type`}}"
             ],
-            "script": "../common/scripts/bin/preinstall.sh",
+            "script": "../common/scripts/bin/pre-install.sh",
             "type": "shell"
         },
         {
-            "environment_vars": [
-                "KUBERNETES_VERSION=1.6.1",
-                "K8S_DNS_VERSION=1.14.1"
-            ],
             "script": "scripts/bin/pre-install.sh",
             "type": "shell"
         }

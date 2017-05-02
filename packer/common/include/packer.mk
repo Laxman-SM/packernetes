@@ -13,7 +13,7 @@ PACKER_VARS := $(PACKER_VARS) -var "basic_packages=$(BASIC_PACKAGES)"
 PACKER_VARS := $(PACKER_VARS) -var "build_git_commit_id=$(GIT_COMMIT_ID)"
 PACKER_VARS := $(PACKER_VARS) -var "image_type=$(IMAGE_TYPE)"
 
-PACKER_JSON = ../common/conf/kubeadm.json
+PACKER_JSON = ../common/conf/packer.json
 
 PACKER = packer $(@) $(PACKER_VARS) $(PACKER_JSON)
 

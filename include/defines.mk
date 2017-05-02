@@ -25,7 +25,6 @@ BUILD_IMAGE = PACKER_SOURCE_AMI="$(PACKER_SOURCE_AMI)" \
 # here we make sure you installed the necessary tools on your machine
 #
 preflight:
-	@which packer 1>/dev/null
-	@which xkcdpass 1>/dev/null
-	@which python 1>/dev/null
+	@which packer || (echo 'PACKER IS MISSING' && exit 1)
+	@which xkcdpass || (echo 'XKCDPASS IS MISSING' && exit 1)
 

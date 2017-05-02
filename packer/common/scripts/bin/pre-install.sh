@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#./preinstall.sh
+#./pre-install.sh
 
 #
 # bail out on the slightest error (will abort packer build)
@@ -29,12 +29,15 @@ export DEBIAN_FRONTEND=noninteractive
 #
 # install basic packages available in every image
 #
-sudo apt-get -y -u install screen \
+sudo apt-get -y -u install \
+  screen \
   golang \
   htop \
   atop \
   tcpdump \
   vim \
+  ntpdate \
+  traceroute \
   $BASIC_PACKAGES
 
 #
@@ -69,7 +72,7 @@ deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 #
-# lets see if there are any upgraded packages in there
+# lets see if there are any upgraded packages in there (note that bootstrap already ran dist-upgrade)
 #
 sudo apt-get update
 sudo apt-get dist-upgrade -y -u
@@ -124,7 +127,7 @@ sudo ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 #
 # install and activate ntp
 #
-sudo apt-get install -y -u ntpdate ntp
+sudo apt-get install -y -u ntp
 for CMD in "enable" "start"; do
   sudo systemctl $CMD ntp
 done
