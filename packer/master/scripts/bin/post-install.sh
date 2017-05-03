@@ -5,11 +5,31 @@ set -e
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
-kubectl apply -f /root/weave.yaml
-kubectl apply -f /root/kubernetes-dashboard.yaml
+#
+# WEAVE
+#
+kubectl apply -f /root/INSTALL/weave.yaml
 
-kubectl apply -f /root/traefik/traefik-with-rbac.yaml
-kubectl apply -f /root/traefik/ui.yaml
+#
+# DASHBOARD
+#
+kubectl apply -f /root/INSTALL/kubernetes-dashboard.yaml
+
+#
+# TRAEFIK
+#
+kubectl apply -f /root/INSTALL/traefik/traefik-with-rbac.yaml
+kubectl apply -f /root/INSTALL/traefik/ui.yaml
+
+#
+# ARMORY
+#
+make -C /root/INSTALL/armory
+
+#
+# install, enable and start the kubectl proxy systemd services
+#
+make -C /root/INSTALL/mesolcina
 
 exit 0
 

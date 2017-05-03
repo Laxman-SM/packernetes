@@ -22,7 +22,7 @@ sudo apt-get autoremove -y
 #
 # install everything that is necessary to run the scripts uploaded via packer
 #
-sudo apt-get install -y -u make golang python wget curl
+sudo apt-get install -y -u make golang python wget curl git rsync
 
 sync
 

@@ -16,5 +16,7 @@ EOF
 sudo chmod 0755 /etc/rc.local
 sudo chown root:root /etc/rc.local
 
+sudo mkdir -pv /data
+
 exit 0
 
