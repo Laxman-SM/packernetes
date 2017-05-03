@@ -11,8 +11,17 @@ function kkc {
 }
 
 function kk {
+  echo
+  echo "#### #### #### PODS"
   kubectl get pods --all-namespaces -o wide
   echo
+  echo "#### #### #### SERVICES"
+  kubectl get svc --all-namespaces -o wide
+  echo
+  echo "#### #### #### INGRESSES"
+  kubectl get ing --all-namespaces -o wide
+  echo
+  echo "#### #### #### NODES"
   kubectl get nodes
 }
 
