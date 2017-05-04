@@ -29,7 +29,8 @@ make -C /root/INSTALL/armory
 #
 # install, enable and start the kubectl proxy systemd services
 #
-make -C /root/INSTALL/mesolcina
+# make -C /root/INSTALL/mesolcina
+#
 
 exit 0
 
