@@ -30,6 +30,7 @@ export DEBIAN_FRONTEND=noninteractive
 # install basic packages available in every image
 #
 sudo apt-get -y -u install \
+  unzip \
   screen \
   glances \
   htop \
