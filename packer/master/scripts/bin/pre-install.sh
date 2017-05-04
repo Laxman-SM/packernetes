@@ -52,13 +52,6 @@ wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k
 wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml | \
   sudo tee /root/INSTALL/traefik/ui.yaml
 
-wget -SO- https://kubernetes-helm.storage.googleapis.com/helm-v2.4.0-linux-amd64.tar.gz | \
-  sudo tar -C /tmp -xzvpf -
-
-sudo cp -avpx /tmp/linux-amd64/helm /usr/local/bin/helm
-sudo chown root:root /usr/local/bin/helm
-sudo chmod 0755 /usr/local/bin/helm
-
 sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
 
 sudo git clone https://github.com/agabert/mesolcina.git /root/INSTALL/mesolcina
