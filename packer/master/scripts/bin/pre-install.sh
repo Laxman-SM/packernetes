@@ -2,9 +2,24 @@
 #./pre-install.sh
 
 set -e
+set -x
 
 sudo tee /root/.bash_aliases<<EOF
 export KUBECONFIG=/etc/kubernetes/admin.conf
+
+function kkpnodelost {
+  kubectl get pods --all-namespaces | \
+    grep NodeLost | \
+      awk '{ print "kubectl delete pods --namespace " \$1 " --grace-period=0 --force " \$2; }' | \
+        grep -v NAMESPACE
+}
+
+function kkp {
+  kubectl get pods --all-namespaces | \
+    grep -v ^kube-system | \
+      awk '{ print "kubectl delete pods --namespace " \$1 " --grace-period=0 --force " \$2; }' | \
+        grep -v NAMESPACE
+}
 
 function kkc {
   kubectl config view --minify
