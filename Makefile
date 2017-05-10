@@ -1,5 +1,12 @@
 
 #
+# add the github users of people here who should be injected during packer image building
+#
+ifeq "$(GITHUB_KEYS)" ""
+GITHUB_KEYS = agabert ixl123
+endif
+
+#
 # pick any Ubuntu 16.04 AMI as the base image
 #
 ifeq "$(PACKER_SOURCE_AMI)" ""

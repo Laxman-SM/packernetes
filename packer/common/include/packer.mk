@@ -12,6 +12,7 @@ PACKER_VARS := $(PACKER_VARS) -var "ami_name=packernetes $(BUILD_STANZA)"
 PACKER_VARS := $(PACKER_VARS) -var "basic_packages=$(BASIC_PACKAGES)"
 PACKER_VARS := $(PACKER_VARS) -var "build_git_commit_id=$(GIT_COMMIT_ID)"
 PACKER_VARS := $(PACKER_VARS) -var "image_type=$(IMAGE_TYPE)"
+PACKER_VARS := $(PACKER_VARS) -var "github_keys=$(GITHUB_KEYS)"
 
 PACKER_JSON = ../common/conf/packer.json
 

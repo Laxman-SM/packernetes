@@ -19,6 +19,7 @@ BUILD_IMAGE = PACKER_SOURCE_AMI="$(PACKER_SOURCE_AMI)" \
 							BASIC_PACKAGES="$(BASIC_PACKAGES)" \
 							BUILD_DATE="$(BUILD_DATE)" \
 							XCODE_NAME="$(XCODE_NAME)" \
+							GITHUB_KEYS="$(GITHUB_KEYS)" \
 							make -C "$(@)"
 
 #

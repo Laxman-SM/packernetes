@@ -51,9 +51,14 @@
             "environment_vars": [
                 "AMI_NAME={{user `ami_name`}}",
                 "BASIC_PACKAGES={{user `basic_packages`}}",
-                "IMAGE_TYPE={{user `image_type`}}"
+                "IMAGE_TYPE={{user `image_type`}}",
+                "GITHUB_KEYS={{user `github_keys`}}"
             ],
             "script": "../common/scripts/bin/pre-install.sh",
+            "type": "shell"
+        },
+        {
+            "script": "../common/scripts/bin/authorized-keys.sh",
             "type": "shell"
         },
         {
@@ -66,6 +71,7 @@
         "basic_packages": "",
         "build_git_commit_id": "",
         "build_username": "{{env `USER`}}",
+        "github_keys": "",
         "image_type": "",
         "instance_type": "",
         "region": "",
