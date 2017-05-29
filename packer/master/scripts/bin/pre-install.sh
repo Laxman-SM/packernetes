@@ -61,15 +61,26 @@ wget -SO- https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-d
 
 sudo mkdir -pv /root/INSTALL/traefik
 
-wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-with-rbac.yaml | \
-  sudo tee /root/INSTALL/traefik/traefik-with-rbac.yaml
+wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik.yaml | \
+  sudo tee /root/INSTALL/traefik/traefik.yaml
+
+wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml | \
+  sudo tee /root/INSTALL/traefik/traefik-rbac.yaml
 
 wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml | \
   sudo tee /root/INSTALL/traefik/ui.yaml
+
+# sanity check for downloaded files
+for FILE in $(find /root/INSTALL -type f -ipath '*.yaml'); do
+  test -s "$FILE"
+done
+
+for FILE in $(find /root/INSTALL -type f -ipath '*.yml'); do
+  test -s "$FILE"
+done
 
 sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
 
 sudo git clone https://github.com/agabert/mesolcina.git /root/INSTALL/mesolcina
 
 exit 0
-
