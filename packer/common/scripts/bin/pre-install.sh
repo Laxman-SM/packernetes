@@ -69,7 +69,6 @@ sudo apt-get install -y -u \
   kubernetes-cni \
   kubeadm \
   ntp \
-  docker-engine \
   $BASIC_PACKAGES
 
 #
@@ -146,4 +145,3 @@ if [[ ! "" == "$GITHUB_KEYS" ]]; then
 fi
 
 exit 0
-
