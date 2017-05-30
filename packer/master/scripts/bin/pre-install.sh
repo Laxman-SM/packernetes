@@ -71,12 +71,12 @@ wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k
   sudo tee /root/INSTALL/traefik/ui.yaml
 
 # sanity check for downloaded files
-for FILE in $(find /root/INSTALL -type f -ipath '*.yaml'); do
-  test -s "$FILE"
+for FILE in $(sudo find /root/INSTALL -type f -ipath '*.yaml'); do
+  sudo test -s "$FILE"
 done
 
-for FILE in $(find /root/INSTALL -type f -ipath '*.yml'); do
-  test -s "$FILE"
+for FILE in $(sudo find /root/INSTALL -type f -ipath '*.yml'); do
+  sudo test -s "$FILE"
 done
 
 sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
