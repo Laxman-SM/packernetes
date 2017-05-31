@@ -2,6 +2,7 @@
 #./bootstrap.sh
 
 set -e
+set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -25,4 +26,3 @@ sudo apt-get autoremove -y
 sudo apt-get install -y -u make golang python wget curl git rsync
 
 sync
-

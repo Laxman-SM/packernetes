@@ -29,9 +29,8 @@ kubectl apply -f /root/INSTALL/traefik/ui.yaml
 make -C /root/INSTALL/armory
 
 #
-# install, enable and start the kubectl proxy systemd services
+# beacon
 #
-# make -C /root/INSTALL/mesolcina
-#
+make -C /root/INSTALL/beacon
 
 exit 0

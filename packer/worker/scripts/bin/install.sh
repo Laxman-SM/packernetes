@@ -2,6 +2,7 @@
 #./install.sh
 
 set -e
+set -x
 
 USER_DATA_URL="http://169.254.169.254/latest/user-data"
 
@@ -54,5 +55,6 @@ if [[ "" == "$MASTER_PORT" ]]; then
   MASTER_PORT="6443"
 fi
 
-sudo kubeadm join --token "$TOKEN" "$MASTER:$MASTER_PORT"
+sudo -i timeout 10 docker ps || sudo -i systemctl restart docker
 
+sudo kubeadm join --token "$TOKEN" "$MASTER:$MASTER_PORT"

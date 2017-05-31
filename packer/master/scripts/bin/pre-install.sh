@@ -7,6 +7,13 @@ set -x
 sudo tee /root/.bash_aliases<<EOF
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
+function kkxx {
+  kubectl get pods --all-namespaces | \
+    grep -v Running | \
+      grep -v NAMESPACE | \
+        awk '{ print "kubectl delete pods --namespace " \$1 " --grace-period=0 --force " \$2; }'
+}
+
 function kkpnodelost {
   kubectl get pods --all-namespaces | \
     grep NodeLost | \
@@ -81,6 +88,6 @@ done
 
 sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
 
-sudo git clone https://github.com/agabert/mesolcina.git /root/INSTALL/mesolcina
+sudo git clone https://github.com/agabert/beacon.git /root/INSTALL/beacon
 
 exit 0

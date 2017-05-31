@@ -2,6 +2,7 @@
 #./pre-install.sh
 
 set -e
+set -x
 
 sudo tee /etc/rc.local <<EOF
 #!/usr/bin/env bash
@@ -19,4 +20,3 @@ sudo chown root:root /etc/rc.local
 sudo mkdir -pv /data
 
 exit 0
-
