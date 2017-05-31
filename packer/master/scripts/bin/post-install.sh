@@ -31,6 +31,7 @@ make -C /root/INSTALL/armory
 #
 # beacon
 #
-make -C /root/INSTALL/beacon
+cd /root/INSTALL/beacon
+make kubernetes
 
 exit 0
