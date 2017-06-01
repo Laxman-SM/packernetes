@@ -4,6 +4,8 @@
 set -e
 set -x
 
+exit 0
+
 sudo apt-get remove -y docker docker-engine || echo
 
 sudo apt-get install -y -u \

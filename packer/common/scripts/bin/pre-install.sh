@@ -69,6 +69,7 @@ sudo apt-get install -y -u \
   kubernetes-cni \
   kubeadm \
   ntp \
+  docker-engine \
   $BASIC_PACKAGES
 
 #
@@ -143,5 +144,12 @@ if [[ ! "" == "$GITHUB_KEYS" ]]; then
     wget -SO- https://github.com/${GITHUB_KEY}.keys | tee -a /home/ubuntu/.ssh/authorized_keys
   done
 fi
+
+#
+# disable UFW
+#
+systemctl stop ufw
+systemctl disable ufw
+apt remove -y ufw
 
 exit 0
