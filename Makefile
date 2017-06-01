@@ -10,7 +10,7 @@ endif
 # pick any Ubuntu 16.04 AMI as the base image
 #
 ifeq "$(PACKER_SOURCE_AMI)" ""
-PACKER_SOURCE_AMI = ami-3f1bd150
+PACKER_SOURCE_AMI = ami-060cde69
 endif
 
 #
@@ -33,7 +33,7 @@ endif
 # note that we only fetch the first two words of the codename generator
 #
 ifeq "$(CODE_NAME_SEED)" ""
-CODE_NAME_SEED = "aa"
+CODE_NAME_SEED = "ab"
 endif
 
 #
@@ -50,4 +50,3 @@ packer/master:
 .PHONY: packer/worker
 packer/worker:
 	@$(BUILD_IMAGE)
-

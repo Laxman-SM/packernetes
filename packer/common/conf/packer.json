@@ -58,10 +58,6 @@
             "type": "shell"
         },
         {
-            "script": "../common/scripts/bin/docker-ce.sh",
-            "type": "shell"
-        },
-        {
             "script": "../common/scripts/bin/authorized-keys.sh",
             "type": "shell"
         },

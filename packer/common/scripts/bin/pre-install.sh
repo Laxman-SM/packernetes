@@ -145,11 +145,4 @@ if [[ ! "" == "$GITHUB_KEYS" ]]; then
   done
 fi
 
-#
-# disable UFW
-#
-systemctl stop ufw
-systemctl disable ufw
-apt remove -y ufw
-
 exit 0

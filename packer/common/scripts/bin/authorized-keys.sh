@@ -4,6 +4,12 @@
 set -e
 set -x
 
+if [[ ! "0" == "$(id -u)" ]]; then
+  exec sudo $0 $@
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
 #
 # inject static list of keys
 #
