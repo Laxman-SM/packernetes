@@ -32,18 +32,24 @@ function kkc {
   kubectl config view --minify
 }
 
+function icl {
+  for POD in $(kubectl get pods --all-namespaces | grep traefik-ingress | awk '{print $2;}'); do
+    echo "### $POD ###"
+    kubectl --namespace kube-system logs $POD | awk '{print "'$POD'::" $0;}'
+  done | \
+    grep -v 'Skipping event from kubernetes' | \
+    grep -v 'Received event from kubernetes' | \
+    grep -v 'code: 200'
+}
+
 function kk {
+  kubectl get all --all-namespaces -o wide
   echo
-  echo "#### #### #### PODS"
-  kubectl get pods --all-namespaces -o wide
+  echo "### ingress ###"
+  kubectl get ingress --all-namespaces -o wide
+
   echo
-  echo "#### #### #### SERVICES"
-  kubectl get svc --all-namespaces -o wide
-  echo
-  echo "#### #### #### INGRESSES"
-  kubectl get ing --all-namespaces -o wide
-  echo
-  echo "#### #### #### NODES"
+  echo "### nodes ###"
   kubectl get nodes
 }
 
