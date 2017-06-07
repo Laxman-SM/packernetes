@@ -10,7 +10,7 @@ endif
 # pick any Ubuntu 16.04 AMI as the base image
 #
 ifeq "$(PACKER_SOURCE_AMI)" ""
-PACKER_SOURCE_AMI = ami-060cde69
+PACKER_SOURCE_AMI = ami-a74c95c8
 endif
 
 #
