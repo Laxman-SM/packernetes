@@ -3,7 +3,7 @@
 # add the github users of people here who should be injected during packer image building
 #
 ifeq "$(GITHUB_KEYS)" ""
-GITHUB_KEYS = agabert ixl123
+GITHUB_KEYS = agabert ixl123 hoesler
 endif
 
 #
