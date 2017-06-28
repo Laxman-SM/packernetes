@@ -7,10 +7,29 @@ GITHUB_KEYS = agabert ixl123 hoesler
 endif
 
 #
+# populate the packernetes AWS credentials from normal AWS credentials if env vars are not set
+#
+ifeq "$(PACKERNETES_AWS_ACCESS_KEY_ID)" ""
+ifneq "$(AWS_ACCESS_KEY_ID)" ""
+PACKERNETES_AWS_ACCESS_KEY_ID = "$(AWS_ACCESS_KEY_ID)"
+endif
+endif
+
+ifeq "$(PACKERNETES_AWS_SECRET_ACCESS_KEY)" ""
+ifneq "$(AWS_SECRET_ACCESS_KEY)" ""
+PACKERNETES_AWS_SECRET_ACCESS_KEY = "$(AWS_SECRET_ACCESS_KEY)"
+endif
+endif
+
+#
 # pick any Ubuntu 16.04 AMI as the base image
 #
 ifeq "$(PACKER_SOURCE_AMI)" ""
-PACKER_SOURCE_AMI = ami-a74c95c8
+ifneq "$(PACKERNETES_AWS_ACCESS_KEY_ID)" ""
+ifneq "$(PACKERNETES_AWS_SECRET_ACCESS_KEY)" ""
+PACKER_SOURCE_AMI = $(shell ./bin/findimage.sh)
+endif
+endif
 endif
 
 #
@@ -50,3 +69,7 @@ packer/master:
 .PHONY: packer/worker
 packer/worker:
 	@$(BUILD_IMAGE)
+
+show:
+	@bin/show.sh
+

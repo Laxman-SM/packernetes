@@ -16,5 +16,8 @@ PACKER_VARS := $(PACKER_VARS) -var "github_keys=$(GITHUB_KEYS)"
 
 PACKER_JSON = ../common/conf/packer.json
 
-PACKER = packer $(@) $(PACKER_VARS) $(PACKER_JSON)
+PACKER = echo && \
+				 echo "using source AMI: [$(PACKER_SOURCE_AMI)]" && \
+				 echo && \
+				 packer $(@) $(PACKER_VARS) $(PACKER_JSON)
 
