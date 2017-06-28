@@ -69,7 +69,6 @@ sudo apt-get install -y -u \
   kubernetes-cni \
   kubeadm \
   ntp \
-  docker-engine \
   $BASIC_PACKAGES
 
 #
