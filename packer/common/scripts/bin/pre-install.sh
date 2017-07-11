@@ -4,6 +4,8 @@
 set -e
 set -x
 
+VERSION="1.6.6-00"
+
 if [[ "" == "$BASIC_PACKAGES" ]]; then
   echo "ERROR: environment variable BASIC_PACKAGES is not set"
   exit 1
@@ -38,10 +40,18 @@ EOF
 export DEBIAN_FRONTEND=noninteractive
 
 #
-# lets see if there are any upgraded packages in there (note that bootstrap already ran dist-upgrade)
+# update metadata (new repo)
 #
 sudo apt-get update
+
+#
+# update to latest packages
+#
 sudo apt-get dist-upgrade -y -u
+
+#
+# remove old packages
+#
 sudo apt-get autoremove -y
 
 #
@@ -64,10 +74,10 @@ sudo apt-get install -y -u \
   ngrep \
   ipcalc \
   apt-transport-https \
-  kubelet \
-  kubectl \
+  kubelet=$VERSION \
+  kubectl=$VERSION \
   kubernetes-cni \
-  kubeadm \
+  kubeadm=$VERSION \
   ntp \
   $BASIC_PACKAGES
 
@@ -143,5 +153,34 @@ if [[ ! "" == "$GITHUB_KEYS" ]]; then
     wget -SO- https://github.com/${GITHUB_KEY}.keys | tee -a /home/ubuntu/.ssh/authorized_keys
   done
 fi
+
+#
+# CNI
+#
+sudo mkdir -pv /etc/cni/net.d
+sudo tee /etc/cni/net.d/10-weave.conf<<EOF
+{
+    "name": "weave",
+    "type": "weave-net",
+    "hairpinMode": true
+}
+EOF
+
+sudo systemctl stop kubelet || echo
+
+sudo mkdir -pv /etc/systemd/system/kubelet.service.d
+
+sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf<<EOF
+[Service]
+Environment="KUBELET_KUBECONFIG_ARGS=--kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
+Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true"
+Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
+Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
+Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
+ExecStart=
+ExecStart=/usr/bin/kubelet \$KUBELET_KUBECONFIG_ARGS \$KUBELET_SYSTEM_PODS_ARGS \$KUBELET_NETWORK_ARGS \$KUBELET_DNS_ARGS \$KUBELET_AUTHZ_ARGS \$KUBELET_EXTRA_ARGS --cloud-provider=aws
+EOF
+
+sudo systemctl daemon-reload
 
 exit 0

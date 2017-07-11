@@ -52,7 +52,7 @@ endif
 # note that we only fetch the first two words of the codename generator
 #
 ifeq "$(CODE_NAME_SEED)" ""
-CODE_NAME_SEED = "ac"
+CODE_NAME_SEED = "ba"
 endif
 
 #
@@ -72,4 +72,3 @@ packer/worker:
 
 show:
 	@bin/show.sh
-

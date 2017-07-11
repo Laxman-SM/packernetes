@@ -28,6 +28,6 @@ fi
 
 sudo systemctl restart docker.service || echo
 
-sudo kubeadm init --token "$TOKEN" --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1,127.0.0.2,127.0.0.3"
-
-exit 0
+sudo kubeadm init \
+  --token "$TOKEN" \
+  --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1"

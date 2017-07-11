@@ -15,13 +15,24 @@ grub grub/update_grub_changeprompt_threeway select install_new
 grub-legacy-ec2 grub/update_grub_changeprompt_threeway select install_new
 EOF
 
+#
+# just in case
+#
 dpkg --configure -a
 
 #
-# update the software in the image to the latest packages available
+# update metadata
 #
 apt-get update
+
+#
+# update to latest packages
+#
 apt-get dist-upgrade -y -u
+
+#
+# remove old packages
+#
 apt-get autoremove -y
 
 #
