@@ -72,6 +72,5 @@ tlsBootstrapToken: $TOKEN
 EOF
 
 sudo kubeadm join \
-  --token "$TOKEN" "$MASTER:$MASTER_PORT"
-
-# --config /etc/packernetes/worker/kubeadm.conf
+  --token "$TOKEN" "$MASTER:$MASTER_PORT" \
+  --config /etc/packernetes/worker/kubeadm.conf

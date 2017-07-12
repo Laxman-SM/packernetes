@@ -40,6 +40,5 @@ EOF
 
 sudo kubeadm init \
   --token "$TOKEN" \
-  --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1"
-
-# --config /etc/packernetes/master/kubeadm.conf
+  --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1" \
+  --config /etc/packernetes/master/kubeadm.conf
