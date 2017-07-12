@@ -28,6 +28,18 @@ fi
 
 sudo systemctl restart docker.service || echo
 
+sudo mkdir -pv /etc/packernetes/master
+
+sudo tee /etc/packernetes/master/kubeadm.conf<<EOF
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+cloudProvider: aws
+
+token: $TOKEN
+EOF
+
 sudo kubeadm init \
   --token "$TOKEN" \
   --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1"
+
+# --config /etc/packernetes/master/kubeadm.conf

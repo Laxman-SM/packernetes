@@ -57,4 +57,21 @@ fi
 
 sudo -i timeout 10 docker ps || sudo -i systemctl restart docker
 
-sudo kubeadm join --token "$TOKEN" "$MASTER:$MASTER_PORT"
+sudo mkdir -pv /etc/packernetes/worker
+
+sudo tee /etc/packernetes/worker/kubeadm.conf<<EOF
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: NodeConfiguration
+cloudProvider: aws
+
+discoveryToken: $TOKEN
+discoveryTokenAPIServers:
+- $MASTER:$MASTER_PORT
+
+tlsBootstrapToken: $TOKEN
+EOF
+
+sudo kubeadm join \
+  --token "$TOKEN" "$MASTER:$MASTER_PORT"
+
+# --config /etc/packernetes/worker/kubeadm.conf
