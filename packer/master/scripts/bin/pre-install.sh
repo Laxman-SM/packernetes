@@ -51,6 +51,10 @@ function kk {
   echo
   echo "### nodes ###"
   kubectl get nodes
+
+  echo
+  echo "### pvc ###"
+  kubectl get pvc
 }
 
 function kkl {
@@ -95,5 +99,61 @@ done
 sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
 
 sudo git clone https://github.com/agabert/beacon.git /root/INSTALL/beacon
+
+sudo mkdir -pv /root/INSTALL/storage
+
+sudo tee /root/INSTALL/storage/storageclasses.yaml<<EOF
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: alex1storageclass
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+EOF
+
+sudo tee /root/INSTALL/storage/pvc.yaml<<EOF
+{
+  "kind": "PersistentVolumeClaim",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "alex1claim",
+    "annotations": {
+        "volume.beta.kubernetes.io/storage-class": "alex1storageclass"
+    }
+  },
+  "spec": {
+    "accessModes": [
+      "ReadWriteOnce"
+    ],
+    "resources": {
+      "requests": {
+        "storage": "10Gi"
+      }
+    }
+  }
+}
+EOF
+
+sudo tee /root/INSTALL/storage/nginx.yaml<<EOF
+kind: Pod
+apiVersion: v1
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: alex1volume
+      persistentVolumeClaim:
+       claimName: alex1claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+      - mountPath: "/usr/share/nginx/html"
+        name: alex1volume
+EOF
 
 exit 0

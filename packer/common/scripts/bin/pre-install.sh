@@ -79,6 +79,7 @@ sudo apt-get install -y -u \
   kubernetes-cni \
   kubeadm=$VERSION \
   ntp \
+  awscli \
   $BASIC_PACKAGES
 
 #
