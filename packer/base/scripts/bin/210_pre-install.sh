@@ -1,19 +1,141 @@
 #!/usr/bin/env bash
-#./authorized-keys.sh
 
 set -e
 set -x
 
 if [[ ! "0" == "$(id -u)" ]]; then
-  exec sudo $0 $@
+  exec sudo -E $0 $@
 fi
 
-export DEBIAN_FRONTEND=noninteractive
+if [[ "" == "$BASIC_PACKAGES" ]]; then
+  echo "ERROR: environment variable BASIC_PACKAGES is not set"
+  exit 1
+fi
+
+if [[ "" == "$AMI_NAME" ]]; then
+  echo "ERROR: environment variable AMI_NAME is not set"
+  exit 1
+fi
+
+if [[ "" == "$IMAGE_TYPE" ]]; then
+  echo "ERROR: environment variable IMAGE_TYPE is not set"
+  exit 1
+fi
 
 #
-# inject static list of keys
+# install google packages key for kubernetes repository
 #
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
+#
+# set up kubernetes repository
+#
+tee /etc/apt/sources.list.d/kubernetes.list <<EOF
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+apt-get update
+apt-get -y -u dist-upgrade
+apt-get autoremove -y
+
+apt-get -y -u install kubelet kubectl kubernetes-cni kubeadm $BASIC_PACKAGES
+
+#
+# set up .vimrc
+#
+tee /root/.vimrc<<EOF
+syntax on
+set hlsearch
+set list
+set listchars=tab:»·,trail:¢
+set expandtab
+set visualbell
+set autoread
+set noswapfile
+set nobackup
+set nowb
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+filetype on
+filetype plugin on
+filetype indent on
+filetype plugin indent on
+EOF
+
+#
+# copy the vimrc to the ubuntu user
+#
+cp /root/.vimrc /home/ubuntu/.vimrc
+chown ubuntu: /home/ubuntu/.vimrc
+
+tee /root/.screenrc<<EOF
+hardstatus alwayslastline
+
+hardstatus string '%{= kG} $AMI_NAME [%= %{= kw}%?%-Lw%?%{r}[%{W}%n*%f %t%?{%u}%?%{r}]%{w}%?%+Lw%?%?%= %{g}] %{W}%{g}%{.w} $IMAGE_TYPE %{.c} [%H]'
+EOF
+
+sed -i 's,master image,MASTER image,g;' /root/.screenrc
+sed -i 's,worker image,WORKER image,g;' /root/.screenrc
+
+#
+# copy the screenrc to the ubuntu user
+#
+cp /root/.screenrc /home/ubuntu/.screenrc
+chown ubuntu: /home/ubuntu/.screenrc
+
+#
+# pin the timezone of the image
+#
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+#
+# activate ntp
+#
+for CMD in "enable" "start"; do
+  systemctl $CMD ntp
+done
+
+#
+# inject github user keys
+#
+if [[ ! "" == "$GITHUB_KEYS" ]]; then
+  for GITHUB_KEY in $GITHUB_KEYS; do
+    echo "## github keys for user [$GITHUB_KEY] injected at $(LANG=C date +%s)" | tee -a /home/ubuntu/.ssh/authorized_keys
+    wget -SO- https://github.com/${GITHUB_KEY}.keys | tee -a /home/ubuntu/.ssh/authorized_keys
+  done
+fi
+
+#
+# CNI
+#
+sudo mkdir -pv /etc/cni/net.d
+sudo tee /etc/cni/net.d/10-weave.conf<<EOF
+{
+    "name": "weave",
+    "type": "weave-net",
+    "hairpinMode": true
+}
+EOF
+
+#
+# CLOUD
+#
+systemctl stop kubelet || echo
+mkdir -pv /etc/systemd/system/kubelet.service.d
+tee /etc/systemd/system/kubelet.service.d/77-kubeadm.conf<<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--cloud-provider=aws"
+EOF
+
+systemctl daemon-reload
+
+#
+# authorized keys
+#
 tee -a /home/ubuntu/.ssh/authorized_keys<<EOF
 
 #
@@ -53,3 +175,5 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDfRVlzfzJqVxKgNGl9G3vhYiEW5b1912rantK/GECr
 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvpU6ZpVhI+LREwCDIQ8lJ+dYOJeg71DM+hNw5ysdXlzMrJKZrg4E/xSMFmNM643db5JDLXSbBhfHF4pZGDf/t6dPpQbA8mcrXimURkZWfOgujRHc8AkSd3iMZ8MCKPCyD0cEaX0A0kJzVgze/CZr2Lq191IJeId8wXc3o5GDz6XAPMtMFbETYJObRAwt42pSuCQ+VLz4sQivUY/W/52eshSebDOuySR4Yq4U0fyyzyBjlnoOcrohkHhZfRdUYI7vYkYQKFSvRdCGSFAH21fEkDGCuMDOC+iOfqrMUoBLcK5b81jLwu8rUe2bjVkPMxoQQuGjlMwJtrvj4NGcu679EQ== schappacheB@OGITNB053
 
 EOF
+
+exit 0

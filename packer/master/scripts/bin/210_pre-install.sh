@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#./pre-install.sh
 
 set -e
 set -x
@@ -157,3 +156,4 @@ spec:
 EOF
 
 exit 0
+

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#./pre-install.sh
 
 set -e
 set -x
@@ -10,7 +9,7 @@ echo '#'
 echo '# setting up kubernetes worker node'
 echo '#'
 
-exec /home/ubuntu/packernetes/worker/scripts/bin/install.sh
+exec /home/ubuntu/packernetes/worker/scripts/bin/310_install.sh
 
 EOF
 
@@ -20,3 +19,4 @@ sudo chown root:root /etc/rc.local
 sudo mkdir -pv /data
 
 exit 0
+

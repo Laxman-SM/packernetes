@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#./post-install.sh
 
 set -e
 set -x
@@ -44,3 +43,4 @@ cd /root/INSTALL/beacon
 make kubernetes
 
 exit 0
+

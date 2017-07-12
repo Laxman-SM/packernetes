@@ -28,23 +28,17 @@
     "provisioners": [
         {
             "inline": [
-                "mkdir -pv /home/ubuntu/packernetes/common",
-                "mkdir -pv /home/ubuntu/packernetes/{{user `image_type`}}"
+                "mkdir -pv /home/ubuntu/packernetes/{{user `image_type`}}/scripts"
             ],
             "type": "shell"
         },
         {
-            "destination": "/home/ubuntu/packernetes/common",
-            "source": "../common/scripts",
-            "type": "file"
-        },
-        {
-            "destination": "/home/ubuntu/packernetes/{{user `image_type`}}",
+            "destination": "/home/ubuntu/packernetes/{{user `image_type`}}/scripts",
             "source": "../{{user `image_type`}}/scripts",
             "type": "file"
         },
         {
-            "script": "../common/scripts/bin/bootstrap.sh",
+            "script": "../{{user `image_type`}}/scripts/bin/110_bootstrap.sh",
             "type": "shell"
         },
         {
@@ -54,19 +48,7 @@
                 "IMAGE_TYPE={{user `image_type`}}",
                 "GITHUB_KEYS={{user `github_keys`}}"
             ],
-            "script": "../common/scripts/bin/pre-install.sh",
-            "type": "shell"
-        },
-        {
-            "script": "../common/scripts/bin/docker-ce.sh",
-            "type": "shell"
-        },
-        {
-            "script": "../common/scripts/bin/authorized-keys.sh",
-            "type": "shell"
-        },
-        {
-            "script": "scripts/bin/pre-install.sh",
+            "script": "../{{user `image_type`}}/scripts/bin/210_pre-install.sh",
             "type": "shell"
         }
     ],

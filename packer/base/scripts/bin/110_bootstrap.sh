@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-#./bootstrap.sh
 
 set -e
 set -x
 
 if [[ ! "0" == "$(id -u)" ]]; then
-  exec sudo $0 $@
+  exec sudo -E $0 $@
 fi
 
 export DEBIAN_FRONTEND=noninteractive
@@ -36,8 +35,17 @@ apt-get dist-upgrade -y -u
 apt-get autoremove -y
 
 #
-# install everything that is necessary to run the scripts uploaded via packer
+# install basic packages
 #
-apt-get install -y -u make golang python wget curl git rsync
+apt-get install -y -u \
+  ntp \
+  screen tmux \
+  htop atop glances ltrace strace lsof \
+  tcpdump traceroute bridge-utils netcat ngrep ipcalc \
+  make git golang python \
+  rsync unzip wget curl \
+  awscli \
+  apt-transport-https \
+  docker.io
 
 sync

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#./install.sh
 
 set -e
 set -x
@@ -74,3 +73,4 @@ EOF
 sudo kubeadm join \
   --token "$TOKEN" "$MASTER:$MASTER_PORT" \
   --config /etc/packernetes/worker/kubeadm.conf
+
