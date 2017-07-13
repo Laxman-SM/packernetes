@@ -50,12 +50,12 @@ apiServerCertSANs:
 - localhost.localdomain
 - localhost
 - 127.0.0.1
-- $MASTER_IP
-- $(hostname -i)
 - $(hostname -f)
 - $(hostname)
+- $(hostname -i)
+- ec2-$(echo $MASTER_IP | sed 's,.,-,g;').eu-central-1.compute.amazonaws.com
+- $MASTER_IP
 
 EOF
 
 sudo kubeadm init --token "$TOKEN" --config /etc/packernetes/master/kubeadm.conf
-
