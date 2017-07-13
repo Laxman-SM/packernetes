@@ -29,6 +29,12 @@ if [[ "" == "$TOKEN" ]]; then
   done
 fi
 
+# if environment variable MASTER_IP has been set, do not overwrite it
+# otherwise try to load it from argv[2]
+if [[ "" == "$MASTER_IP" ]]; then
+  MASTER_IP="$2"
+fi
+
 sudo -i timeout 10 docker ps || sudo -i systemctl restart docker.service
 
 sudo mkdir -pv /etc/packernetes/master
@@ -39,10 +45,17 @@ kind: MasterConfiguration
 cloudProvider: aws
 
 token: $TOKEN
+
+apiServerCertSANs:
+- localhost.localdomain
+- localhost
+- 127.0.0.1
+- $MASTER_IP
+- $(hostname -i)
+- $(hostname -f)
+- $(hostname)
+
 EOF
 
-sudo kubeadm init \
-  --token "$TOKEN" \
-  --apiserver-cert-extra-sans "localhost.localdomain,localhost,127.0.0.1" \
-  --config /etc/packernetes/master/kubeadm.conf
+sudo kubeadm init --token "$TOKEN" --config /etc/packernetes/master/kubeadm.conf
 

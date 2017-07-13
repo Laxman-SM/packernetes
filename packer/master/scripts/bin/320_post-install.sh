@@ -42,5 +42,11 @@ make -C /root/INSTALL/armory
 cd /root/INSTALL/beacon
 make kubernetes
 
-exit 0
+#
+# storage
+#
+kubectl apply -f /root/INSTALL/storage/storageclasses.yaml
+kubectl patch storageclass default \
+  -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
+exit 0

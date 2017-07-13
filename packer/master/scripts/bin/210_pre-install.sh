@@ -108,25 +108,26 @@ sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
 sudo git clone https://github.com/agabert/beacon.git /root/INSTALL/beacon
 
 sudo mkdir -pv /root/INSTALL/storage
+sudo mkdir -pv /root/INSTALL/storagetest
 
 sudo tee /root/INSTALL/storage/storageclasses.yaml<<EOF
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: alex1storageclass
+  name: default
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: gp2
 EOF
 
-sudo tee /root/INSTALL/storage/pvc.yaml<<EOF
+sudo tee /root/INSTALL/storagetest/pvc.yaml<<EOF
 {
   "kind": "PersistentVolumeClaim",
   "apiVersion": "v1",
   "metadata": {
     "name": "alex1claim",
     "annotations": {
-        "volume.beta.kubernetes.io/storage-class": "alex1storageclass"
+        "volume.beta.kubernetes.io/storage-class": "default"
     }
   },
   "spec": {
@@ -142,7 +143,7 @@ sudo tee /root/INSTALL/storage/pvc.yaml<<EOF
 }
 EOF
 
-sudo tee /root/INSTALL/storage/nginx.yaml<<EOF
+sudo tee /root/INSTALL/storagetest/nginx.yaml<<EOF
 kind: Pod
 apiVersion: v1
 metadata:
@@ -164,4 +165,3 @@ spec:
 EOF
 
 exit 0
-

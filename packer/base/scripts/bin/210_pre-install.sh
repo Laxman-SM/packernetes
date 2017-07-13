@@ -38,12 +38,12 @@ apt-get update
 apt-get -y -u dist-upgrade
 apt-get autoremove -y
 
-BORG_VERSION="1.6.6-00"
+# BORG_VERSION="=1.6.6-00"
 
 apt-get -y -u install \
-  kubelet=$BORG_VERSION \
-  kubectl=$BORG_VERSION \
-  kubeadm=$BORG_VERSION \
+  kubelet"$BORG_VERSION" \
+  kubectl"$BORG_VERSION" \
+  kubeadm"$BORG_VERSION" \
   kubernetes-cni $BASIC_PACKAGES
 
 #
