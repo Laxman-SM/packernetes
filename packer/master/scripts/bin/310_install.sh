@@ -53,10 +53,7 @@ apiServerCertSANs:
 - $(hostname -f)
 - $(hostname)
 - $(hostname -i)
-- ec2-$(echo $MASTER_IP | sed 's,.,-,g;').eu-central-1.compute.amazonaws.com
-- ec2-$(echo $MASTER_IP | sed 's,.,-,g;').eu-central-1.compute
-- ec2-$(echo $MASTER_IP | sed 's,.,-,g;').eu-central-1
-- ec2-$(echo $MASTER_IP | sed 's,.,-,g;')
+- ec2-$(echo $MASTER_IP | sed 's,\.,-,g;').eu-central-1.compute.amazonaws.com
 - $MASTER_IP
 
 EOF

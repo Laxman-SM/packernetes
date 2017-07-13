@@ -38,7 +38,7 @@ apt-get update
 apt-get -y -u dist-upgrade
 apt-get autoremove -y
 
-# BORG_VERSION="=1.6.6-00"
+BORG_VERSION="=1.6.7-00"
 
 apt-get -y -u install \
   kubelet"$BORG_VERSION" \
