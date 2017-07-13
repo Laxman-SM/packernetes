@@ -6,6 +6,10 @@ set -x
 sudo tee /root/.bash_aliases<<EOF
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
+function kubelet_status {
+  PAGER=cat systemctl status -l kubelet
+}
+
 function kkxx {
   kubectl get pods --all-namespaces | \
     grep -v Running | \
@@ -50,6 +54,10 @@ function kk {
   echo
   echo "### nodes ###"
   kubectl get nodes
+
+  echo
+  echo "### storage classes ###"
+  kubectl get storageclasses
 
   echo
   echo "### pvc ###"
