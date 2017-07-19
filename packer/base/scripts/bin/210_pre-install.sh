@@ -78,21 +78,6 @@ EOF
 cp /root/.vimrc /home/ubuntu/.vimrc
 chown ubuntu: /home/ubuntu/.vimrc
 
-tee /root/.screenrc<<EOF
-hardstatus alwayslastline
-
-hardstatus string '%{= kG} $AMI_NAME [%= %{= kw}%?%-Lw%?%{r}[%{W}%n*%f %t%?{%u}%?%{r}]%{w}%?%+Lw%?%?%= %{g}] %{W}%{g}%{.w} $IMAGE_TYPE %{.c} [%H]'
-EOF
-
-sed -i 's,master image,MASTER image,g;' /root/.screenrc
-sed -i 's,worker image,WORKER image,g;' /root/.screenrc
-
-#
-# copy the screenrc to the ubuntu user
-#
-cp /root/.screenrc /home/ubuntu/.screenrc
-chown ubuntu: /home/ubuntu/.screenrc
-
 #
 # pin the timezone of the image
 #
