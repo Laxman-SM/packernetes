@@ -27,7 +27,7 @@ fi
 #
 mkdir -pv /root/INSTALL && cd /root/INSTALL
 test -d quiescence || git clone https://github.com/agabert/quiescence.git
-cd quiescence && make
+cd quiescence && git pull origin master && make
 cd
 
 #
