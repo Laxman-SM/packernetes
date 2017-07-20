@@ -177,4 +177,17 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCi4FfvR6WOs/dRRKSyLkJ58/jAn5nspsZ7lgk7Z+5Q
 
 EOF
 
+#
+# root logins
+#
+sed 's|disable_root: true|disable_root: false|g;' /etc/cloud/cloud.cfg
+systemctl restart cloud-init
+
+mkdir -pv /root/.ssh
+cp /home/ubuntu/.ssh/authorized_keys /root/.ssh/authorized_keys
+chown -Rv root:root /root
+
+chmod -v 0755 /root /root/.ssh
+chmod -v 0644 /root/.ssh/authorized_keys
+
 exit 0
