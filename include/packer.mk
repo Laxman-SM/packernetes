@@ -6,9 +6,11 @@ BUILD_STANZA = ($(BUILD_DATE)) $(IMAGE_TYPE) image [$(XCODE_NAME)]
 GIT_COMMIT_ID = "$(shell git log --pretty=format:'%H' -n 1)"
 
 ifeq "base" "$(IMAGE_TYPE)"
-PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/ubuntu.sh)"
+#PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/ubuntu.sh)"
+PACKER_VARS := $(PACKER_VARS) -var "source_ami=ami-1c45e273"
 else
-PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/baseimage.sh)"
+#PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/baseimage.sh)"
+PACKER_VARS := $(PACKER_VARS) -var "source_ami=ami-4ece6321"
 endif
 
 PACKER_VARS := $(PACKER_VARS) -var "region=$(PACKER_REGION)"
