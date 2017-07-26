@@ -107,6 +107,9 @@ wget -SO- https://git.io/weave-kube-1.6 | \
 wget -SO- https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml | \
   sudo tee /root/INSTALL/kubernetes-dashboard.yaml
 
+wget -SO- https://raw.githubusercontent.com/giantswarm/kubernetes-heapster/master/manifests-all.yaml | \
+  sudo tee /root/INSTALL/kubernetes-heapster.yaml
+
 sudo mkdir -pv /root/INSTALL/traefik
 
 wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik.yaml | \

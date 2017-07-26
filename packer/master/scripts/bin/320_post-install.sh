@@ -23,7 +23,7 @@ kubectl apply -f /root/INSTALL/weave.yaml
 # DASHBOARD
 #
 kubectl apply -f /root/INSTALL/kubernetes-dashboard.yaml
-
+kubectl apply -f /root/INSTALL/kubernetes-heapster.yaml
 #
 # TRAEFIK
 #
