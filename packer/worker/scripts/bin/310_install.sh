@@ -54,14 +54,14 @@ if [[ "" == "$MASTER_PORT" ]]; then
   MASTER_PORT="6443"
 fi
 
-sudo -i timeout 10 docker ps || sudo -i timeout 10 systemctl restart docker
-
 sudo mkdir -pv /etc/packernetes/worker
 
 sudo tee /etc/packernetes/worker/kubeadm.conf<<EOF
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: NodeConfiguration
 cloudProvider: aws
+
+nodeName: $(hostname -f)
 
 token: $TOKEN
 

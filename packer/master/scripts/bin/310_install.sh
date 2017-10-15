@@ -35,14 +35,18 @@ if [[ "" == "$MASTER_IP" ]]; then
   MASTER_IP="$2"
 fi
 
-sudo -i timeout 10 docker ps || sudo -i systemctl restart docker.service
-
 sudo mkdir -pv /etc/packernetes/master
 
 sudo tee /etc/packernetes/master/kubeadm.conf<<EOF
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 cloudProvider: aws
+
+nodeName: $(hostname -f)
+
+authorizationModes:
+- Node
+- RBAC
 
 token: $TOKEN
 

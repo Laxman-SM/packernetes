@@ -32,8 +32,6 @@ echo '#'
 echo '# setting up kubernetes worker node'
 echo '#'
 
-echo 1 >/proc/sys/net/ipv6/conf/all/disable_ipv6
-
 exec /home/ubuntu/packernetes/worker/scripts/bin/310_install.sh
 
 EOF

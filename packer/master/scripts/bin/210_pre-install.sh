@@ -162,8 +162,6 @@ echo '#'
 echo '# setting up kubernetes master node'
 echo '#'
 
-echo 1 >/proc/sys/net/ipv6/conf/all/disable_ipv6
-
 EOF
 
 sudo chmod 0755 /etc/rc.local
