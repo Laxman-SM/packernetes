@@ -3,7 +3,7 @@ BUILD_DATE := $(shell date +%s)
 
 XKCDPASS = docker run -it --rm --detach=false agabert/rampensau:latest --count=1
 
-XCODE_NAME := $(shell $(XKCDPASS)--acrostic=$(CODE_NAME_SEED))
+XCODE_NAME := $(shell $(XKCDPASS) --acrostic=$(CODE_NAME_SEED))
 
 BASIC_PACKAGES = htop screen make lsof strace ltrace tcpdump tmux golang
 

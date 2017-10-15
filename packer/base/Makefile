@@ -4,8 +4,8 @@ all: validate build
 include ../../include/packer.mk
 
 validate:
-	@$(PACKER)
+	$(PACKER)
 
 build:
-	@$(PACKER)
+	$(PACKER)
 
