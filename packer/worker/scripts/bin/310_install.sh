@@ -63,6 +63,8 @@ apiVersion: kubeadm.k8s.io/v1alpha1
 kind: NodeConfiguration
 cloudProvider: aws
 
+token: $TOKEN
+
 discoveryToken: $TOKEN
 discoveryTokenAPIServers:
 - $MASTER:$MASTER_PORT
@@ -70,5 +72,5 @@ discoveryTokenAPIServers:
 tlsBootstrapToken: $TOKEN
 EOF
 
-sudo kubeadm join --token "$TOKEN" "$MASTER:$MASTER_PORT" --config /etc/packernetes/worker/kubeadm.conf
+sudo kubeadm join "$MASTER:$MASTER_PORT" --config /etc/packernetes/worker/kubeadm.conf
 

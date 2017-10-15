@@ -58,4 +58,4 @@ apiServerCertSANs:
 
 EOF
 
-sudo kubeadm init --token "$TOKEN" --config /etc/packernetes/master/kubeadm.conf
+sudo kubeadm init --config /etc/packernetes/master/kubeadm.conf
