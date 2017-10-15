@@ -3,18 +3,7 @@
 # add the github users of people here who should be injected during packer image building
 #
 ifeq "$(GITHUB_KEYS)" ""
-GITHUB_KEYS = agabert ixl123 hoesler
-endif
-
-#
-# populate the packernetes AWS credentials from normal AWS credentials if env vars are not set
-#
-ifeq "$(PACKERNETES_AWS_ACCESS_KEY_ID)" ""
-PACKERNETES_AWS_ACCESS_KEY_ID = "$(AWS_ACCESS_KEY_ID)"
-endif
-
-ifeq "$(PACKERNETES_AWS_SECRET_ACCESS_KEY)" ""
-PACKERNETES_AWS_SECRET_ACCESS_KEY = "$(AWS_SECRET_ACCESS_KEY)"
+GITHUB_KEYS = agabert ixl123 hoesler ben-st
 endif
 
 #
@@ -37,7 +26,7 @@ endif
 # note that we only fetch the first two words of the codename generator
 #
 ifeq "$(CODE_NAME_SEED)" ""
-CODE_NAME_SEED = "ca"
+CODE_NAME_SEED = "ea"
 endif
 
 #

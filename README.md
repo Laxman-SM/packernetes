@@ -9,3 +9,8 @@ When an EC2 instance of the ASG comes up it calls the join script via /etc/rc.lo
 To use this project, please set up your access key and secret key in ~/.aws/credentials.
 Also you need to pip install xkcdpass and download packer from hashicorp to run this code.
 
+You can export the following environment variables to create packer images in a different EC2 account:
+```
+export PACKERNETES_AWS_SECRET_ACCESS_KEY=ZZZZ
+export PACKERNETES_AWS_ACCESS_KEY_ID=AKIAXXXX
+```

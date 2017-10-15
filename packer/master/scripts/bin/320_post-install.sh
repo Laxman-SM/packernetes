@@ -15,34 +15,6 @@ kubectl create clusterrolebinding permissive-binding \
   --group=system:serviceaccounts
 
 #
-# WEAVE
-#
-kubectl apply -f /root/INSTALL/weave.yaml
-
-#
-# DASHBOARD
-#
-kubectl apply -f /root/INSTALL/kubernetes-dashboard.yaml
-kubectl apply -f /root/INSTALL/kubernetes-heapster.yaml
-#
-# TRAEFIK
-#
-kubectl apply -f /root/INSTALL/traefik/traefik-rbac.yaml
-kubectl apply -f /root/INSTALL/traefik/traefik.yaml
-kubectl apply -f /root/INSTALL/traefik/ui.yaml
-
-#
-# ARMORY
-#
-make -C /root/INSTALL/armory
-
-#
-# beacon
-#
-cd /root/INSTALL/beacon
-make kubernetes
-
-#
 # storage
 #
 kubectl apply -f /root/INSTALL/storage/storageclasses.yaml

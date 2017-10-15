@@ -5,12 +5,17 @@ BUILD_STANZA = ($(BUILD_DATE)) $(IMAGE_TYPE) image [$(XCODE_NAME)]
 
 GIT_COMMIT_ID = "$(shell git log --pretty=format:'%H' -n 1)"
 
+EINHOR1 = agabert/einhorn:latest
+EINHOR2 = docker pull $(EINHOR1) 1>/dev/null;
+EINHOR3 = docker run -it --rm --detach=false
+EINHOR4 = -e AWS_SECRET_ACCESS_KEY=$(PACKERNETES_AWS_SECRET_ACCESS_KEY)
+EINHOR5 = -e AWS_ACCESS_KEY_ID=$(PACKERNETES_AWS_ACCESS_KEY_ID)
+EINHORN = $(EINHOR2) $(EINHOR3) $(EINHOR4) $(EINHOR5)
+
 ifeq "base" "$(IMAGE_TYPE)"
-#PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/ubuntu.sh)"
-PACKER_VARS := $(PACKER_VARS) -var "source_ami=ami-1c45e273"
+PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell $(EINHORN))"
 else
-#PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/baseimage.sh)"
-PACKER_VARS := $(PACKER_VARS) -var "source_ami=ami-4ece6321"
+PACKER_VARS := $(PACKER_VARS) -var "source_ami=$(shell ../../bin/baseimage.sh)"
 endif
 
 PACKER_VARS := $(PACKER_VARS) -var "region=$(PACKER_REGION)"

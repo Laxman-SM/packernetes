@@ -40,7 +40,7 @@ apt-get autoremove -y
 apt-get install -y -u \
   ntp \
   screen tmux \
-  htop atop glances ltrace strace lsof \
+  htop glances ltrace strace lsof \
   tcpdump traceroute bridge-utils netcat ngrep ipcalc \
   make git golang python \
   rsync unzip wget curl \

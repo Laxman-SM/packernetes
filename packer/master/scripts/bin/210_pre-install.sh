@@ -99,41 +99,6 @@ function kkl {
 }
 EOF
 
-sudo mkdir -pv /root/INSTALL
-
-wget -SO- https://git.io/weave-kube-1.6 | \
-  sudo tee /root/INSTALL/weave.yaml
-
-wget -SO- https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml | \
-  sudo tee /root/INSTALL/kubernetes-dashboard.yaml
-
-wget -SO- https://raw.githubusercontent.com/giantswarm/kubernetes-heapster/master/manifests-all.yaml | \
-  sudo tee /root/INSTALL/kubernetes-heapster.yaml
-
-sudo mkdir -pv /root/INSTALL/traefik
-
-wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik.yaml | \
-  sudo tee /root/INSTALL/traefik/traefik.yaml
-
-wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml | \
-  sudo tee /root/INSTALL/traefik/traefik-rbac.yaml
-
-wget -SO- https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml | \
-  sudo tee /root/INSTALL/traefik/ui.yaml
-
-# sanity check for downloaded files
-for FILE in $(sudo find /root/INSTALL -type f -ipath '*.yaml'); do
-  sudo test -s "$FILE"
-done
-
-for FILE in $(sudo find /root/INSTALL -type f -ipath '*.yml'); do
-  sudo test -s "$FILE"
-done
-
-sudo git clone https://github.com/agabert/armory.git /root/INSTALL/armory
-
-sudo git clone https://github.com/agabert/beacon.git /root/INSTALL/beacon
-
 sudo mkdir -pv /root/INSTALL/storage
 sudo mkdir -pv /root/INSTALL/storagetest
 

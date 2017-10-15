@@ -54,7 +54,7 @@ if [[ "" == "$MASTER_PORT" ]]; then
   MASTER_PORT="6443"
 fi
 
-sudo -i timeout 10 docker ps || sudo -i systemctl restart docker
+sudo -i timeout 10 docker ps || sudo -i timeout 10 systemctl restart docker
 
 sudo mkdir -pv /etc/packernetes/worker
 
